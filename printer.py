@@ -2,10 +2,12 @@ from model import Job
 
 
 class JobPrinter:
-    def _get_values_str(self, values):
+    @staticmethod
+    def _get_values_str(values):
         return " ".join(map(str, values))
 
-    def _print_line(self, name, values_str):
+    @staticmethod
+    def _print_line(name, values_str):
         print(f"{name:13} {values_str}")
 
     def print_job(self, job: Job):
