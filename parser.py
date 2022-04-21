@@ -1,11 +1,11 @@
 import re
-from typing import Tuple
+from typing import Iterable, Tuple
 
 from model import Job, JobFactory, Schedule, ScheduleFactory
 
 
 class ScheduleNumberParser:
-    def __init__(self, all_values):
+    def __init__(self, all_values: Iterable):
         self._all_values = sorted(all_values)
 
     @staticmethod
