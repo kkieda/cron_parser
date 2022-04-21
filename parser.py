@@ -68,7 +68,7 @@ class StringScheduleFactory(ScheduleFactory):
 
     def create(self) -> Schedule:
         tokens = self._input_string.split()
-        if len(tokens) != 5:
+        if len(tokens) < 5:
             raise ValueError("Invalid cron line")
 
         return Schedule(
@@ -90,8 +90,8 @@ class StringJobFactory(JobFactory):
             r"([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s(.+)",
             self._input_string,
         ):
-            *schedule_tokens, command = m.groups()
-            schedule = StringScheduleFactory(" ".join(schedule_tokens)).create()
+            *_, command = m.groups()
+            schedule = StringScheduleFactory(self._input_string).create()
         else:
             raise ValueError("Invalid cron job string")
 
