@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from parser import StringJobFactory
+from parser import JobParser
 
 from printer import JobPrinter
 
@@ -16,7 +16,7 @@ def parse_args():
 
 
 def main(cron_line: str):
-    job = StringJobFactory(cron_line).create()
+    job = JobParser().parse(cron_line)
     JobPrinter().print_job(job)
 
 

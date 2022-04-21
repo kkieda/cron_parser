@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 
@@ -40,19 +39,7 @@ class Schedule:
         self._validate()
 
 
-class ScheduleFactory(ABC):
-    @abstractmethod
-    def create(self) -> Schedule:
-        pass
-
-
 @dataclass
 class Job:
     command: str
     schedule: Schedule
-
-
-class JobFactory(ABC):
-    @abstractmethod
-    def create(self) -> Job:
-        pass

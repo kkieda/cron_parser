@@ -1,4 +1,4 @@
-from parser import ScheduleNumberParser, StringJobFactory, StringScheduleFactory
+from parser import JobParser, ScheduleNumberParser, ScheduleParser
 
 import pytest
 
@@ -34,11 +34,11 @@ def test_schedule_number_parser_should_not_parse_invalid_range(
         schedule_number_parser.parse(input_string)
 
 
-def test_string_schedule_factory_should_not_parse_no_values():
-    string_schedule_factory = StringScheduleFactory("* * * * 5-1")
+def test_schedule_parser_should_not_parse_no_values():
+    schedule_parser = ScheduleParser()
 
     with pytest.raises(ValueError):
-        schedule = string_schedule_factory.create()
+        schedule = schedule_parser.parse("* * * * 5-1")
         print(schedule.minutes, schedule.days_of_week)
 
 
@@ -57,11 +57,11 @@ def test_string_schedule_factory_should_not_parse_no_values():
         "* * * * 7",
     ],
 )
-def test_string_schedule_factory_should_not_parse_invalid_values(input_string):
-    string_schedule_factory = StringScheduleFactory(input_string)
+def test_schedule_parser_should_not_parse_invalid_values(input_string):
+    schedule_parser = ScheduleParser()
 
     with pytest.raises(ValueError):
-        string_schedule_factory.create()
+        schedule_parser.parse(input_string)
 
 
 @pytest.mark.parametrize(
@@ -76,10 +76,10 @@ def test_string_schedule_factory_should_not_parse_invalid_values(input_string):
         ("15 0 15 2 1-5 /usr/bin/find a bc ", "/usr/bin/find a bc", [15]),
     ],
 )
-def test_string_job_factory_should_parse_valid_string(input_string, command, minutes):
-    job_factory = StringJobFactory(input_string)
+def test_job_parser_should_parse_valid_string(input_string, command, minutes):
+    job_parser = JobParser()
 
-    job = job_factory.create()
+    job = job_parser.parse(input_string)
     assert job.command == command
     assert job.schedule.minutes == minutes
 
@@ -95,8 +95,8 @@ def test_string_job_factory_should_parse_valid_string(input_string, command, min
         "1555 0 15 2 - /usr/bin/find",
     ],
 )
-def test_string_job_factory_should_not_parse_invalid_string(input_string):
-    job_factory = StringJobFactory(input_string)
+def test_job_parser_should_not_parse_invalid_string(input_string):
+    job_parser = JobParser()
 
     with pytest.raises(ValueError):
-        job_factory.create()
+        job_parser.parse(input_string)

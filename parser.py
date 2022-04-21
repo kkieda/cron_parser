@@ -1,7 +1,7 @@
 import re
 from typing import Tuple
 
-from model import Job, JobFactory, Schedule, ScheduleFactory
+from model import Job, Schedule
 
 
 class ScheduleNumberParser:
@@ -57,9 +57,8 @@ class ScheduleNumberParser:
         return values
 
 
-class StringScheduleFactory(ScheduleFactory):
-    def __init__(self, input_string: str):
-        self._input_string = input_string
+class ScheduleParser:
+    def __init__(self):
         self._minutes_parser = ScheduleNumberParser(sorted(Schedule.ALL_MINUTES))
         self._hours_parser = ScheduleNumberParser(sorted(Schedule.ALL_HOURS))
         self._days_of_month_parser = ScheduleNumberParser(
@@ -70,8 +69,8 @@ class StringScheduleFactory(ScheduleFactory):
             sorted(Schedule.ALL_DAYS_OF_WEEK)
         )
 
-    def create(self) -> Schedule:
-        tokens = self._input_string.split()
+    def parse(self, input_string: str) -> Schedule:
+        tokens = input_string.split()
         if len(tokens) < 5:
             raise ValueError("Invalid cron line")
 
@@ -84,18 +83,17 @@ class StringScheduleFactory(ScheduleFactory):
         )
 
 
-class StringJobFactory(JobFactory):
-    def __init__(self, input_string: str):
-        self._input_string = input_string.strip()
+class JobParser:
+    def parse(self, input_string: str) -> Job:
+        input_string = input_string.strip()
 
-    def create(self) -> Job:
         # standard cron format e.g. '*/15 0 1,15 * 1-5 /usr/bin/find -a'
         if m := re.match(
             r"([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s(.+)",
-            self._input_string,
+            input_string,
         ):
             *_, command = m.groups()
-            schedule = StringScheduleFactory(self._input_string).create()
+            schedule = ScheduleParser().parse(input_string)
         else:
             raise ValueError("Invalid cron job string")
 
