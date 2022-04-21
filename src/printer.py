@@ -1,4 +1,4 @@
-from model import Job
+from .model import Job
 
 
 class JobPrinter:

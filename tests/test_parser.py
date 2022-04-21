@@ -1,6 +1,6 @@
-from parser import JobParser, ScheduleNumberParser, ScheduleParser
-
 import pytest
+
+from src.parser import JobParser, ScheduleNumberParser, ScheduleParser
 
 
 @pytest.fixture

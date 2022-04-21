@@ -1,8 +1,8 @@
 from io import StringIO
 from unittest.mock import patch
 
-from model import Job, Schedule
-from printer import JobPrinter
+from src.model import Job, Schedule
+from src.printer import JobPrinter
 
 
 def test_printer_should_print_in_correct_format():

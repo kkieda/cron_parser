@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
-from parser import JobParser
 
-from printer import JobPrinter
+from src.parser import JobParser
+from src.printer import JobPrinter
 
 
 def parse_args():

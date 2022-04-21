@@ -1,7 +1,7 @@
 import re
 from typing import Tuple
 
-from model import Job, Schedule
+from .model import Job, Schedule
 
 
 class ScheduleNumberParser:
