@@ -91,11 +91,11 @@ class StringJobFactory(JobFactory):
             self._input_string,
         ):
             *schedule_tokens, command = m.groups()
-            schedule_input_string = " ".join(schedule_tokens)
+            schedule = StringScheduleFactory(" ".join(schedule_tokens)).create()
         else:
             raise ValueError("Invalid cron job string")
 
         return Job(
             command=command,
-            schedule=StringScheduleFactory(schedule_input_string).create(),
+            schedule=schedule,
         )
