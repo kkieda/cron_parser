@@ -9,8 +9,7 @@ from src.printer import JobPrinter
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        dest="cron_line",
-        help="Cron string e.g. '*/15 0 1,15 * 1-5 /usr/bin/find'",
+        dest="cron_line", help="Cron string e.g. '*/15 0 1,15 * 1-5 /usr/bin/find'"
     )
     return parser.parse_args()
 

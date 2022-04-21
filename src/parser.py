@@ -89,7 +89,7 @@ class JobParser:
 
         # standard cron format e.g. '*/15 0 1,15 * 1-5 /usr/bin/find -a'
         if m := re.match(
-            r"([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s([*/\d,-]+)\s(.+)",
+            r"([*/\d,-]+)\s+([*/\d,-]+)\s+([*/\d,-]+)\s+([*/\d,-]+)\s+([*/\d,-]+)\s+(.+)",
             input_string,
         ):
             *_, command = m.groups()
