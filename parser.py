@@ -1,12 +1,12 @@
 import re
-from typing import Iterable, Tuple
+from typing import Tuple
 
 from model import Job, JobFactory, Schedule, ScheduleFactory
 
 
 class ScheduleNumberParser:
-    def __init__(self, all_values: Iterable):
-        self._all_values = sorted(all_values)
+    def __init__(self, all_values: list[int]):
+        self._all_values = all_values
 
     @staticmethod
     def _parse_divider(input_string: str) -> Tuple[str, int]:
@@ -60,11 +60,15 @@ class ScheduleNumberParser:
 class StringScheduleFactory(ScheduleFactory):
     def __init__(self, input_string: str):
         self._input_string = input_string
-        self._minutes_parser = ScheduleNumberParser(Schedule.ALL_MINUTES)
-        self._hours_parser = ScheduleNumberParser(Schedule.ALL_HOURS)
-        self._days_of_month_parser = ScheduleNumberParser(Schedule.ALL_DAYS_OF_MONTH)
-        self._months_parser = ScheduleNumberParser(Schedule.ALL_MONTHS)
-        self._days_of_week_parser = ScheduleNumberParser(Schedule.ALL_DAYS_OF_WEEK)
+        self._minutes_parser = ScheduleNumberParser(sorted(Schedule.ALL_MINUTES))
+        self._hours_parser = ScheduleNumberParser(sorted(Schedule.ALL_HOURS))
+        self._days_of_month_parser = ScheduleNumberParser(
+            sorted(Schedule.ALL_DAYS_OF_MONTH)
+        )
+        self._months_parser = ScheduleNumberParser(sorted(Schedule.ALL_MONTHS))
+        self._days_of_week_parser = ScheduleNumberParser(
+            sorted(Schedule.ALL_DAYS_OF_WEEK)
+        )
 
     def create(self) -> Schedule:
         tokens = self._input_string.split()
