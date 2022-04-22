@@ -38,8 +38,7 @@ def test_schedule_parser_should_not_parse_no_values():
     schedule_parser = ScheduleParser()
 
     with pytest.raises(ValueError):
-        schedule = schedule_parser.parse("* * * * 5-1")
-        print(schedule.minutes, schedule.days_of_week)
+        schedule_parser.parse("* * * * 5-1")
 
 
 @pytest.mark.parametrize(

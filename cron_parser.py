@@ -2,8 +2,8 @@
 
 import argparse
 
+from src.formatter import JobFormatter
 from src.parser import JobParser
-from src.printer import JobPrinter
 
 
 def parse_args():
@@ -16,7 +16,8 @@ def parse_args():
 
 def main(cron_line: str):
     job = JobParser().parse(cron_line)
-    JobPrinter().print_job(job)
+    job_str = JobFormatter().format_job(job)
+    print(job_str)
 
 
 if __name__ == "__main__":
