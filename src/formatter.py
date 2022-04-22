@@ -3,11 +3,11 @@ from .model import Job
 
 class JobFormatter:
     @staticmethod
-    def _get_values_str(values):
+    def _get_values_str(values) -> str:
         return " ".join(map(str, values))
 
     @staticmethod
-    def _format_line(name, values_str):
+    def _format_line(name, values_str) -> str:
         return f"{name:13} {values_str}"
 
     def format_job(self, job: Job) -> str:
